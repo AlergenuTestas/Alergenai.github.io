@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alergenų tikrinimas</title>
+</head>
+<body>
+    <h1>Alergenų tikrinimas</h1>
+    <p><b>Įkelk sudėtį čia:</b></p>
+
+    <!-- Textarea to input the words -->
+    <textarea id="inputWords" rows="20" cols="50" placeholder="Įrašykite sudėtį..."></textarea><br><br>
+
+    <!-- Button to trigger the matching function -->
+    <button onclick="matchWords()">TIKRINTI</button>
+
+    <!-- Div to display the matched results -->
+    <div id="matchedWords"></div>
+
+    <script>
+        // List of words stored in the program
+        const storedWords = [
+            "acetato-o", "(acetato-o) fenilgyvsidabris", "bufenas", "mercuron", "fenilmerkuriacetatas", 
+            "(aceto)fenilgyvsidabris", "aceto fenilgyvsidabris", "celmer", "neantina", "fenilo gyvsidabris", 
+            "acetoksifenilo gyvsidabris", "contra kremas", "norforms", "amonio acetatas", "cosan pma", "nildew ac 30", 
+            "pmal", "fenilo gyvsidabrio darinys", "gallotox", "nuodex pma 18", "scuti", "(acetoksimercuri) benzenas", 
+            "acetoksimercuri benzenas", "hong nien", "nylmerate", "seedtox", "agrosan gn 5", "liquifenas", "pamisan", 
+            "shimmer-ex", "mersol algi", "acticide", "einecs 247-500-7", "einecs 247", "einecs 500", "einecs 7", 
+            "methylchloroisothiazolinone", "algucid ch50", "euxyl k 100", "methylisothlazolinone", "amerstat 250", 
+            "fennosan it 21gr 856 izolin", "groto b1932", "mitco b1932", "mitco k", "mitco tk2", "paretolis", 
+            "cl+ me-izotlazolinonas", "izotiazolonas", "parmetolis df 35", "parmetolis df 12", "parmetolis a23", 
+            "parmetolis k50", "parmetolis k40", "parmetolis df 18", "chloro-2-metil-3(2h)-zotiazolonas", "kathon cg", 
+            "kathon dp", "kathon lx", "kathon ut", "kathon wt", "p3 multan d", "chlor-2-meti-4-zotiazolin-3-onas", 
+            "mergal k7", "piror p109", "chloro-2-meti-4-izotiazolin-3-onas", "metat gt", "metatin gt", "specialus mx 323", 
+            "chloro-2-metil-4-izotiazolin-3-onas", "pro clin 150", "dihidroabietilo alkoholis", "hidroabietilo alkoholis", 
+            "abitolis", "2h 1 benzopiranas 6 ol", "dl-alfa-tokoferilo acetatas", "3,4 dihidro-2,5", "7,8 tetrametil-2,4 trimetiltridecilas", 
+            "8 trimetiltridecilas", "12 trimetiltridecilas", "dl alfatokoferolis all-rac-alfa-tokoferilo acetatas", "efinalis", 
+            "alfa- tokoferolio acetatas", "alfa-tokoferolio acetatas", "sintoferolio acetatas", "ccri s 6054", "vitamino e acetatas di forma", 
+            "dl-alpha-tocopheryl acetate", "3,4,5-trihidroksibenzen-1-propilkarboksilata", "nipagallina p", "3,4,5-trihidroksibenzoatas", 
+            "pg", "galino rügsties propilo ester", "progalina p", "n-propila", "galatas", "propilo 3,4,5-trihidroksibenzoatas", 
+            "n-propilo 3,4,5-trihidroksibenzoatas", "propylgalatas", "3,4,5-trihidroksibenzenecarboxylic acid npropyl esters", "propyl ester", 
+            "nipa 49", "tenox pg"
+        ];
+
+        // Function to match words from the input with stored words
+        function matchWords() {
+            // Get the input sentence from the textarea
+            const inputText = document.getElementById("inputWords").value.toLowerCase();
+            
+            console.log("Input Text:", inputText); // Debug log to check what input is given
+            
+            // Clear previous results
+            document.getElementById("matchedWords").innerHTML = "";
+
+            // Ensure that input is not empty
+            if (inputText.trim() === "") {
+                document.getElementById("matchedWords").innerHTML = "<p>Prašome įvesti tekstą.</p>";
+                return;
+            }
+
+            // Check if the input sentence contains any of the stored words
+            const matched = storedWords.filter(word => inputText.includes(word));
+            
+            // Debugging output to check matched words
+            console.log("Matched Words:", matched);
+
+            // Display matched words
+            const resultDiv = document.getElementById("matchedWords");
+            if (matched.length > 0) {
+                resultDiv.innerHTML = "<h3>Alergenai:</h3>";
+                const ul = document.createElement("ul");
+                matched.forEach(match => {
+                    const li = document.createElement("li");
+                    li.textContent = match;
+                    ul.appendChild(li);
+                });
+                resultDiv.appendChild(ul);
+            } else {
+                resultDiv.innerHTML = "<p>Alergenų nėra (GAL)</p>";
+            }
+        }
+    </script>
+</body>
+</html>
